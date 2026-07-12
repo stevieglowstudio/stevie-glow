@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stevie Glow Studio — Cils, Lip Blush & Microshading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FBEFEC;
+    --pink: #F3D8DA;
+    --rose: #C97B84;
+    --rose-deep: #B6606C;
+    --plum: #4A2F35;
+    --gold: #C9A876;
+    --white: #FFFFFF;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--plum);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  ::selection{background:var(--rose); color:var(--white);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6vw;
+    z-index:100;
+    mix-blend-mode:normal;
+    transition:background .4s ease, padding .4s ease, backdrop-filter .4s ease;
+  }
+  nav.scrolled{
+    background:rgba(251,239,236,.85);
+    backdrop-filter:blur(10px);
+    padding:14px 6vw;
+    box-shadow:0 1px 0 rgba(74,47,53,.06);
+  }
+  .nav-logo{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    letter-spacing:.06em;
+    font-style:italic;
+  }
+  .nav-links{
+    display:flex; gap:2.4rem;
+    font-size:.82rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .nav-links a{position:relative; padding-bottom:4px;}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--rose-deep); transition:width .35s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--plum);
+    padding:9px 22px;
+    border-radius:100px;
+    font-size:.78rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    transition:background .3s ease, color .3s ease;
+  }
+  .nav-cta:hover{background:var(--plum); color:var(--white);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    overflow:hidden;}
+    .hero img{ position: absolute;inset: 0; width: 100%; height: 100%; object-position:top; object-fit:cover; z-index:0;}
+   
+  .hero-half{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    padding:6vw;
+    isolation:isolate;
+    
+  }
+  .hero-bg{
+    position: absolute;inset:0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  .hero-half::before{
+    content: '';
+    position: absolute; inset :0;
+    background:rgba(0,0,0,.35);
+    z-index: 2;
+  }
+  .hero-label, .hero-word{
+    position: relative;
+    z-index: 2;
+  }
+  .hero-label{
+    position:absolute;
+    top:14vh;
+    font-size:.78rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    opacity:.75;
+    z-index: 2;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0,0,0,.5);
+  }
+  .hero-half.left .hero-label{left:6vw;}
+  .hero-half.right .hero-label{right:6vw;}
+
+  .hero-word{
+    font-family:'Fraunces', serif;
+    font-weight:300;
+    font-size:clamp(2.6rem, 6.2vw, 5.4rem);
+    line-height:.95;
+    color:#C97B84;
+    
+  }
+  .hero-half.left .hero-word{text-align:right; padding-right:4vw;}
+  .hero-half.right .hero-word{text-align:left; padding-left:4vw; font-style:italic;}
+  
+  .hero-line{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    pointer-events:none;
+  }
+
+  .hero-center{
+    position:absolute; top:auto;  left:50%; transform:translate(-50%); bottom: 10vh;
+    z-index:20;
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:1.1rem;
+  }
+  .hero-center .mark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(2.6rem, 5.5vw, 4.2rem);
+    color:var(--rose);text-shadow:0 2px 24px rgba(104, 68, 46, .4);
+    letter-spacing:.02em;
+    bottom: -10vh;
+    position: relative;
+    
+  }
+  .hero-center .tagline{
+    font-size:1.5rem;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--white);
+    text-shadow:0 1px 10px rgba(74,47,53,.4);
+    bottom: 10vh;
+    position:absolute;
+    
+
+  }
+
+  .hero-scroll{
+    position:absolute; bottom:1vh; left:50%; transform:translateX(-50%);
+    z-index:20;
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    font-size:.8rem; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--plum);
+  }
+  .hero-scroll .line{width:10px; height:20px; background:var(--plum); opacity:.5; animation:pulse-line 2.2s ease-in-out infinite;}
+  @keyframes pulse-line{0%,100%{transform:scaleY(1); opacity:.5;} 50%{transform:scaleY(.5); opacity:1;}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:11vh 6vw;}
+  .section-head{
+    display:flex; flex-direction:column; gap:.6rem;
+    margin-bottom:5vh;
+  }
+  .eyebrow{
+    font-size:.74rem; letter-spacing:.3em; text-transform:uppercase; color:var(--rose-deep);
+  }
+  .section-title{font-size:clamp(1.9rem, 3.6vw, 3rem); font-weight:400;}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--white);}
+  .service-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border-radius:28px; overflow:hidden;
+    box-shadow:0 30px 60px -30px rgba(74,47,53,.2);
+  }
+  .service-col{padding:5vw 3.4vw; position:relative;}
+  .service-col.cils{background:var(--pink);}
+  .service-col.lip{background:var(--rose); color:var(--cream);}
+  .service-col h3{font-size:1.9rem; margin-bottom:.4rem; font-style:italic;}
+  .service-col p.desc{font-size:.95rem; line-height:1.6; opacity:.85; max-width:34ch; margin-bottom:2.2rem;}
+  .service-list{display:flex; flex-direction:column; gap:0;}
+  .service-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:1.1rem 0;
+    border-top:1px solid rgba(74,47,53,.15);
+    font-size:.95rem;
+  }
+  .service-col.lip .service-item{border-top:1px solid rgba(251,239,236,.3);}
+  .service-item .name{letter-spacing:.02em;}
+  .service-item .price{font-family:'Fraunces', serif; font-style:italic; font-size:1.05rem;}
+  .service-item:last-child{border-bottom:1px solid rgba(74,47,53,.15);}
+  .service-col.lip .service-item:last-child{border-bottom:1px solid rgba(251,239,236,.3);}
+
+  .sub-label{
+    font-size:.72rem; letter-spacing:.24em; text-transform:uppercase;
+    opacity:.65; margin:1.8rem 0 .6rem;
+  }
+  table.price-table{width:100%; border-collapse:collapse; font-size:.86rem;}
+  table.price-table th{
+    text-align:left; font-weight:400; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+    opacity:.6; padding-bottom:.5rem;
+  }
+  table.price-table th.num, table.price-table td.num{text-align:right;}
+  table.price-table td{padding:.55rem 0; border-top:1px solid rgba(74,47,53,.12);}
+  .service-col.lip table.price-table td{border-top:1px solid rgba(251,239,236,.28);}
+  table.price-table td.final{font-family:'Fraunces', serif; font-style:italic; font-weight:500;}
+  .pig-split{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-bottom:.4rem;}
+  .pig-split h5{font-size:.95rem; font-weight:500; margin-bottom:.6rem; font-style:italic; font-family:'Fraunces',serif;}
+  .taxnote{font-size:.7rem; opacity:.55; margin-top:1.4rem;}
+
+  /* ---------- SIGNATURE LINE MOTIF ---------- */
+  .motif{
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 6vw;
+    background:var(--cream);
+  }
+  .motif svg{width:min(680px, 90vw); height:auto;}
+  .motif-path{
+    stroke:var(--rose-deep);
+    stroke-width:1.6;
+    fill:none;
+    stroke-linecap:round;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .motif-path.in-view{stroke-dashoffset:0;}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--white);}
+  .process-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:2.4rem;
+  }
+  .process-step{position:relative; padding-top:2.6rem;}
+  .process-step .num{font-family:'Fraunces', serif; font-style:italic; font-size:.95rem;
+    color:var(--rose-deep); position:absolute; top:0; left:0;
+  }
+  .process-step h4{font-size:1.25rem; margin-bottom:.5rem; font-weight:500;}
+  .process-step p{font-size:.92rem; line-height:1.65; opacity:.8; max-width:32ch;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--cream);}
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem;
+  }
+  .gallery-item{
+    aspect-ratio:3/4;
+    border-radius:16px;
+    position:relative;
+    overflow:hidden;
+    display:flex; align-items:flex-end;
+    padding:1.2rem;
+    background-attachment: var(--rose); 
+    z-index: 0; }
+  .gallery-item span{
+    font-family:'Fraunces', serif; font-style:italic; color: #fff;;
+    font-size:1.05em; ; text-shadow:0 1px 10px rgba(0,0,0,.6);
+    position:relative; z-index:2;
+  }
+  .gallery-item::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 35%, transparent 65% );z-index:1;}
+  .gallery-item.g1{background:radial-gradient(circle at 30% 20%, #F6DEDF, #C97B84 120%);}
+  .gallery-item.g2{background:radial-gradient(circle at 70% 30%, #E9BFC4, #B6606C 120%);}
+  .gallery-item.g3{background:radial-gradient(circle at 40% 60%, #F3D8DA, #A85661 120%);}
+  .gallery-item.g4{background:radial-gradient(circle at 60% 20%, #F6DEDF, #C9A876 130%);}
+  .gallery-item img{ position: absolute;inset: 0; width: 100%; height: 100%; object-position:top; object-fit:cover; z-index:0;}
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{background:var(--pink);}
+  .t-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:2.4rem;}
+  .t-card{
+    background:var(--white);
+    border-radius:20px;
+    padding:2.2rem 1.8rem;
+    display:flex; flex-direction:column; gap:1rem;
+  }
+  .t-card .stars{color:var(--gold); letter-spacing:.2em; font-size:.9rem;}
+  .t-card p{font-size:.95rem; line-height:1.65; font-style:italic; font-family:'Fraunces', serif;}
+  .t-card .who{font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; opacity:.65; font-family:'Jost',sans-serif;}
+
+  /* ---------- BOOKING ---------- */
+  .booking{
+    background:var(--plum); color:var(--cream);
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:1.6rem;
+  }
+  .booking .section-title{color:var(--cream);}
+  .booking p{max-width:46ch; opacity:.8; line-height:1.7; font-size:.98rem;}
+  .btn-primary{
+    background:var(--rose);
+    color:var(--cream);
+    padding:16px 40px;
+    border-radius:100px;
+    font-size:.82rem; letter-spacing:.14em; text-transform:uppercase;
+    transition:transform .3s ease, background .3s ease;   display:inline-block;
+  }
+  .btn-primary:hover{background:var(--gold); transform:translateY(-2px);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--plum); color:var(--cream);
+    padding:5vh 6vw 4vh;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px solid rgba(251,239,236,.12);
+    font-size:.82rem;
+  }
+  footer .foot-logo{font-family:'Fraunces', serif; font-style:italic; font-size:1.3rem; margin-bottom:.5rem;}
+  footer .foot-links{display:flex; gap:1.6rem; text-transform:uppercase; letter-spacing:.1em; font-size:.72rem; opacity:.75;}
+  footer .foot-right{text-align:right; opacity:.6; font-size:.72rem;}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr; min-height:auto;}
+    .hero-half{padding:14vw 8vw; min-height:52vh;}
+    .hero-half.left .hero-word, .hero-half.right .hero-word{text-align:center; padding:0;}
+    .hero-center{position:relative; top:auto; left:auto; transform:none; padding:2.4rem 0; background:var(--plum);}
+    .hero-scroll{display:none;}
+    .service-grid{grid-template-columns:1fr;}
+    .pig-split{grid-template-columns:1fr;}
+    .process-grid, .t-grid{grid-template-columns:1fr; gap:2.6rem;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .nav-links{display:none;}
+    footer{flex-direction:column; gap:1.6rem; align-items:flex-start;}
+    footer .foot-right{text-align:left;}
+  }
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--rose-deep); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">Stevie Glow</div>
+  <div class="nav-links">
+    <a href="#services">Prestations</a>
+    <a href="#process">Déroulé</a>
+    <a href="#gallery">Réalisations</a>
+    <a href="#testimonials">Avis</a>
+  </div>
+  <a href="#booking" class="nav-cta">Réserver</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-half left">
+    <img src="Pose/cils_2.jpg" class="hero-bg" alt="cils">
+    <span class="hero-label">Regard</span>
+    <div class="hero-word">  Cils</div>
+  </div>
+  <div class="hero-half right">
+    <img src="Pose/lips_blush.jpg"  class="hero-bg"  alt="lips_blush">
+    <span class="hero-label">Sourire</span>
+    <div class="hero-word">Lip Blush</div>
+  </div>
+  <div class="hero-center">
+    <div class="mark">Stevie Glow Studio</div>
+    <div class="tagline">L'art de sublimer votre beauté naturelle.</div>
+  </div>
+  
+</section>
+
+<section class="motif">
+  <svg viewBox="0 0 680 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path class="motif-path" d="M40 120 C 90 60, 160 60, 210 110 C 240 140, 200 150, 175 130 C 220 90, 300 80, 340 115 C 380 80, 460 90, 505 130 C 480 150, 440 140, 470 110 C 520 60, 590 60, 640 120" />
+  </svg>
+</section>
+
+<section class="services" id="services">
+  <div class="section-head reveal">
+    <span class="eyebrow">Nos deux univers</span>
+    <h2 class="section-title">Deux gestes, une même douceur</h2>
+  </div>
+  <div class="service-grid reveal">
+    <div class="service-col cils">
+      <h3>Cils</h3>
+      <p class="desc">Extension cil à cil, effet mixte, volume russe ou méga volume — pour un regard intense au réveil, sans une once de mascara.</p>
+
+      <p class="sub-label">Pose complète</p>
+      <table class="price-table">
+        <tr><th>Prestation</th><th class="num">Avant taxes</th><th class="num">Avec taxes</th></tr>
+        <tr><td>Classique — effet naturel</td><td class="num">60,00 $</td><td class="num final">68,99 $</td></tr>
+        <tr><td>Mixte — naturel + volume</td><td class="num">80,00 $</td><td class="num final">91,99 $</td></tr>
+        <tr><td>Volume russe — effet intense</td><td class="num">100,00 $</td><td class="num final">114,99 $</td></tr>
+        <tr><td>Méga volume — regard sophistiqué</td><td class="num">120,00 $</td><td class="num final">137,99 $</td></tr>
+      </table>
+
+      <p class="sub-label">Remplissages — toutes techniques</p>
+      <table class="price-table">
+        <tr><td>2 semaines</td><td class="num">50,00 $</td><td class="num final">57,49 $</td></tr>
+        <tr><td>3 semaines</td><td class="num">60,00 $</td><td class="num final">68,99 $</td></tr>
+        <tr><td>4 semaines</td><td class="num">70,00 $</td><td class="num final">80,49 $</td></tr>
+      </table>
+
+      <p class="sub-label">Prestations complémentaires</p>
+      <table class="price-table">
+        <tr><td>Dépose cils</td><td class="num">15,00 $</td><td class="num final">17,25 $</td></tr>
+        <tr><td>Épilation des sourcils</td><td class="num">10,00 $</td><td class="num final">11,50 $</td></tr>
+      </table>
+    </div>
+
+    <div class="service-col lip">
+      <h3>Pigmentation</h3>
+      <p class="desc">Lip blush et microshading : un effet poudré et naturel sur les lèvres ou les sourcils, qui tient sans retouche quotidienne.</p>
+
+      <div class="pig-split">
+        <div>
+          <h5>Lip Blush</h5>
+          <table class="price-table">
+            <tr><th>Séance</th><th class="num">Avec taxes</th></tr>
+            <tr><td>Avec retouche incluse</td><td class="num final">402,41 $</td></tr>
+            <tr><td>Sans retouche</td><td class="num final">287,44 $</td></tr>
+          </table>
+        </div>
+        <div>
+          <h5>Microshading</h5>
+          <table class="price-table">
+            <tr><th>Séance</th><th class="num">Avec taxes</th></tr>
+            <tr><td>Avec retouche incluse</td><td class="num final">402,41 $</td></tr><tr><td>Sans retouche</td><td class="num final">287,44 $</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <p class="sub-label">Retouche (6 à 8 semaines après)</p>
+      <table class="price-table">
+        <tr><td>Retouche — lip blush ou microshading</td><td class="num">150,00 $</td><td class="num final">172,46 $</td></tr>
+      </table>
+
+      <p class="taxnote">* Taxes applicables : TPS (5 %) + TVQ (9,975 %) = 14,975 %</p>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="section-head reveal">
+    <span class="eyebrow">La séance</span>
+    <h2 class="section-title">Ce qui vous attend</h2>
+  </div>
+  <div class="process-grid reveal">
+    <div class="process-step">
+      <span class="num">01</span>
+      <h4>Consultation</h4>
+      <p>On regarde ensemble la forme de vos yeux ou de vos lèvres, et on choisit le rendu qui vous va — jamais l'inverse.</p>
+    </div>
+    <div class="process-step">
+      <span class="num">02</span>
+      <h4>Application</h4>
+      <p>Pose ou pigmentation en cabine, dans le calme, avec du matériel à usage unique et un soin méticuleux du détail.</p>
+    </div>
+    <div class="process-step">
+      <span class="num">03</span>
+      <h4>Suivi</h4>
+      <p>Conseils d'entretien remis à la sortie, et rendez-vous de retouche programmé pour que l'effet dure.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="section-head reveal">
+    <span class="eyebrow">Portfolio</span>
+    <h2 class="section-title">Quelques regards, quelques sourires</h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item g1"> <img src="Pose/volume_russe.jpg" alt="volume_russe" style="object-position: center 15%;"><span>Volume russe</span></div>
+    <div class="gallery-item g2"><img src="Pose/lip_blush_nude.jpg" alt="lip_blush_nude"style="object-position: center 15%;"><span>Lip blush nude</span></div>
+    <div class="gallery-item g3"><img src="Pose/cils_à_cils_naturel.jpg" alt="cils_à_cils_naturel"style="object-position: center 15%;"><span>Cil à cil naturel</span></div>
+    <div class="gallery-item g4"><img src="Pose/microshading_sourcils.jpg" alt="microshading_sourcils"style="object-position: center 15%;"><span>Microshading sourcils</span></div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-head reveal">
+    <span class="eyebrow">Elles en parlent</span>
+    <h2 class="section-title">Douceur confirmée</h2>
+  </div>
+  <div class="t-grid reveal">
+    <div class="t-card">
+      <span class="stars">★★★★★</span>
+      <p>« Un regard transformé sans avoir l'air 'refait'. Exactement ce que je voulais. »</p>
+      <span class="who">Aïcha, cliente cils</span>
+    </div>
+    <div class="t-card">
+      <span class="stars">★★★★★</span>
+      <p>« Mes lèvres ont enfin la couleur que je mettais 10 minutes à obtenir chaque matin. »</p>
+      <span class="who">Nadège, cliente lip blush</span>
+    </div>
+    <div class="t-card">
+      <span class="stars">★★★★★</span>
+      <p>« Accueil chaleureux, geste précis, et un résultat qui a tenu bien au-delà de ce qu'on m'avait promis. »</p>
+      <span class="who">Prisca, cliente cils & lèvres</span>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <span class="eyebrow">Prête à briller</span>
+  <h2 class="section-title">On s'occupe du reste</h2>
+  <p>Parce que vous méritez de vous sentir belle, chaque jour. Appelez ou écrivez-nous pour réserver votre créneau.</p>
+  <a href="tel:+13673301419" class="btn-primary">Book au 367 330 1419</a>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">Stevie Glow Studio</div>
+    <div class="foot-links">
+      <a href="tel:+13673301419">367 330 1419</a>
+      <span>Instagram — Stevie glow studio</span>
+      <span>TikTok — Stevie glow studio</span>
+    </div>
+  </div>
+  <div class="foot-right">
+    Confiance. Éclat. Beauté.<br>
+    © 2026 Stevie Glow Studio — Tous droits réservés
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const motifPath = document.querySelector('.motif-path');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+      }
+    });
+  }, {threshold:0.18});
+
+  revealEls.forEach(el => io.observe(el));
+  if(motifPath) io.observe(motifPath);
+</script>
+
+</body>
+</html>
