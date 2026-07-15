@@ -90,26 +90,47 @@
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
-    min-height:100svh;
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    min-height :100svh;
+    display:flex;
+    flex-direction:column;
     overflow:hidden;}
     .hero img{ position: absolute;inset: 0; width: 100%; height: 100%; object-position:top; object-fit:cover; z-index:0;}
-   
+  .hero-logo-row{
+    position:relative;
+    flex:1.3;
+    min-height:0;
+  }
+  .hero-logo-row .hero-logo-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
+
+  .hero-photos-row{
+    position:relative;
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    min-height:0;
+  }
+
   .hero-half{
     position:relative;
     display:flex; align-items:center; justify-content:center;
     padding:6vw;
     isolation:isolate;
-    
+
   }
   .hero-bg{
     position: absolute;inset:0;
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     z-index: 0;
   }
+  .hero-half.left{background:linear-gradient(150deg, var(--pink), var(--cream) 70%);}
+  .hero-half.right{background:linear-gradient(210deg, var(--rose), var(--rose-deep) 75%);}
   .hero-half::before{
     content: '';
     position: absolute; inset :0;
@@ -132,30 +153,28 @@
     text-shadow: 0 1px 6px rgba(0,0,0,.5);
   }
   .hero-half.left .hero-label{left:6vw;}
-  .hero-half.right .hero-label{right:6vw;}
-
-  .hero-word{
+  .hero-half.right .hero-label{right:6vw;}.hero-word{
     font-family:'Fraunces', serif;
     font-weight:300;
     font-size:clamp(2.6rem, 6.2vw, 5.4rem);
     line-height:.95;
     color:#C97B84;
-    
+
   }
   .hero-half.left .hero-word{text-align:right; padding-right:4vw;}
-  .hero-half.right .hero-word{text-align:left; padding-left:4vw; font-style:italic;}
-  
+  .hero-half.right .hero-word{text-align:left; padding-left:1vw; font-style:italic;}
+
   .hero-line{
     position:absolute; inset:0;
     width:100%; height:100%;
     pointer-events:none;
   }
 
-  .hero-center{
-    position:absolute; top:auto;  left:50%; transform:translate(-50%); bottom: 10vh;
-    z-index:20;
+  .hero-center{position:relative; 
     text-align:center;
     display:flex; flex-direction:column; align-items:center; gap:1.1rem;
+    background: var(--cream);
+    padding: 6vh 6vw;
   }
   .hero-center .mark{
     font-family:'Fraunces', serif;
@@ -164,19 +183,15 @@
     font-size:clamp(2.6rem, 5.5vw, 4.2rem);
     color:var(--rose);text-shadow:0 2px 24px rgba(104, 68, 46, .4);
     letter-spacing:.02em;
-    bottom: -10vh;
-    position: relative;
     
   }
   .hero-center .tagline{
     font-size:1.5rem;
     letter-spacing:.28em;
     text-transform:uppercase;
-    color:var(--white);
-    text-shadow:0 1px 10px rgba(74,47,53,.4);
-    bottom: 10vh;
-    position:absolute;
-    
+    color:var(--rose-deep);
+   
+
 
   }
 
@@ -241,9 +256,7 @@
   table.price-table td.final{font-family:'Fraunces', serif; font-style:italic; font-weight:500;}
   .pig-split{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem; margin-bottom:.4rem;}
   .pig-split h5{font-size:.95rem; font-weight:500; margin-bottom:.6rem; font-style:italic; font-family:'Fraunces',serif;}
-  .taxnote{font-size:.7rem; opacity:.55; margin-top:1.4rem;}
-
-  /* ---------- SIGNATURE LINE MOTIF ---------- */
+  .taxnote{font-size:.7rem; opacity:.55; margin-top:1.4rem;}/* ---------- SIGNATURE LINE MOTIF ---------- */
   .motif{
     display:flex; align-items:center; justify-content:center;
     padding:8vh 6vw;
@@ -285,31 +298,160 @@
     overflow:hidden;
     display:flex; align-items:flex-end;
     padding:1.2rem;
-    background-attachment: var(--rose); 
+    background-attachment: var(--rose);
+    text-decoration:none; color:inherit; cursor:pointer;
     z-index: 0; }
-  .gallery-item span{
-    font-family:'Fraunces', serif; font-style:italic; color: #fff;;
-    font-size:1.05em; ; text-shadow:0 1px 10px rgba(0,0,0,.6);
+  .gallery-caption{
     position:relative; z-index:2;
+    display:flex; flex-direction:column; gap:.25rem;
+  }
+  .gallery-caption .name{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500; color:#fff;
+    font-size:1.05rem; text-shadow:0 1px 10px rgba(0,0,0,.6);
+  }
+  .gallery-caption .meta{
+    font-family:'Jost', sans-serif; font-size:.78rem; letter-spacing:.03em;
+    color:rgba(255,255,255,.92); text-shadow:0 1px 8px rgba(0,0,0,.6);
+  }
+  .gallery-item{
+    aspect-ratio: 3/4;
+    border-radius:16px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 1.2rem;
+    background: var(--rose);
+    cursor:pointer;
+
   }
   .gallery-item::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 35%, transparent 65% );z-index:1;}
   .gallery-item.g1{background:radial-gradient(circle at 30% 20%, #F6DEDF, #C97B84 120%);}
   .gallery-item.g2{background:radial-gradient(circle at 70% 30%, #E9BFC4, #B6606C 120%);}
   .gallery-item.g3{background:radial-gradient(circle at 40% 60%, #F3D8DA, #A85661 120%);}
   .gallery-item.g4{background:radial-gradient(circle at 60% 20%, #F6DEDF, #C9A876 130%);}
+  .gallery-item.g5{background:radial-gradient(circle at 30% 20%, #F6DEDF, #C97B84 120%);}
+  .gallery-item.g6{background:radial-gradient(circle at 30% 20%, #F6DEDF, #C97B84 120%);}
   .gallery-item img{ position: absolute;inset: 0; width: 100%; height: 100%; object-position:top; object-fit:cover; z-index:0;}
-  /* ---------- TESTIMONIALS ---------- */
-  .testimonials{background:var(--pink);}
-  .t-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:2.4rem;}
-  .t-card{
+   /*---------- LIGHTBOX (100% CSS, technique :target) ----------*/
+  .lightbox-overlay{
+    display:none;
+    position: fixed; inset: 0; z-index: 200;
+    align-items: center; justify-content: center;
+    padding: 6vh 5vw;
+  }
+  .lightbox-overlay:target{
+    display: flex;
+  }
+  .lightbox-overlay-bg{
+    position: absolute; inset: 0;
+    background: rgba(30,17,19,.88);
+    z-index: 0;
+  }
+  .lightbox-box{
+    position: relative; z-index: 1;
+    background:var(--cream) ;
+    border-radius: 20px;
+    max-width: 480px; width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex; flex-direction:column ;
+    max-height:90vh;
+  }
+  .lightbox-img-wrap {
+    width: 100%;
+    aspect-ratio: 3/4;
+    max-height: 55vh;
+    position:relative;
+    flex-shrink: 0; 
+  }
+  .lightbox-img-wrap img, .lightbox-img-wrap .lightbox-bg{
+    position: absolute; inset: 0; width: 100%; height:100%; object-fit:cover;
+  }
+  .lightbox-info{
+    padding: 1.6rem 1.8rem;
+    display:flex ; flex-direction:column; gap:.9rem;
+}
+.lightbox-info .lb-name{ font-family: 'Fraunces', serif; font-style:italic ; font-size: 1.3rem;}
+.lightbox-info .lb-meta{ font-size: .9rem; color: var(--rose-deep); letter-spacing: .04em; }
+.lightbox-info .lb-book{background:var(--rose); color: var(--cream);
+  border: none; padding: 14px; border-radius: 100px;
+  font-size: .82rem; letter-spacing: .14rem; text-transform:uppercase;
+  cursor:pointer; text-align: center; text-decoration: none;
+  transition: background .3s ease;
+}
+.lightbox-info .lb-book:hover{background: var(--gold);
+}
+.lightbox-close{
+  position: absolute; top:1vh; right:1vh; z-index:2;
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(74,47,53,.5); border-radius:50%;
+  color: var(--white);
+  font-size: 1.6rem; line-height:1; text-decoration:none;
+}/* ---------- CONTACT / INFOS PRATIQUES ---------- */
+  .contact-info{background:var(--pink);}
+  .info-list{
+    max-width:640px; margin:0 auto;
     background:var(--white);
     border-radius:20px;
-    padding:2.2rem 1.8rem;
-    display:flex; flex-direction:column; gap:1rem;
+    overflow:hidden;
   }
-  .t-card .stars{color:var(--gold); letter-spacing:.2em; font-size:.9rem;}
-  .t-card p{font-size:.95rem; line-height:1.65; font-style:italic; font-family:'Fraunces', serif;}
-  .t-card .who{font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; opacity:.65; font-family:'Jost',sans-serif;}
+  .info-item{
+    display:flex; align-items:center; justify-content:space-between; gap:1.2rem;
+    padding:1.4rem 1.6rem;
+    border-top:1px solid rgba(74,47,53,.1);
+    color:inherit; text-decoration:none;
+    cursor:pointer;
+    list-style:none;
+    transition:background .25s ease;
+  }
+  .info-list > *:first-child{border-top:none;}
+  .info-item:hover{background:var(--cream);}
+  .info-item::-webkit-details-marker{display:none;}
+  .info-text{display:flex; flex-direction:column; gap:.3rem;}
+  .info-title{font-family:'Fraunces', serif; font-style:italic; font-size:1.05rem; color:var(--plum);}
+  .info-sub{font-size:.85rem; color:var(--rose-deep); line-height:1.5;}
+  .info-icon{
+    flex-shrink:0;
+    width:42px; height:42px;
+    border-radius:12px;
+    background:var(--pink);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--rose-deep);
+  }
+  .info-icon svg{width:20px; height:20px;}
+  .info-icon.chevron{transition:transform .3s ease;}
+  details[open] .info-icon.chevron{transform:rotate(180deg);}
+  .hours-table{
+    padding:0 1.6rem 1.4rem;
+    display:flex; flex-direction:column; gap:.6rem;
+  }
+  .hours-table div{
+    display:flex; justify-content:space-between;
+    font-size:.88rem; color:var(--plum);
+  }
+  .hours-table span:first-child{opacity:.65;}
+
+  .social-list{
+    padding:0 1.6rem 1.4rem;
+    display:flex; flex-direction:column; gap:.2rem;
+  }
+  .social-link{
+    display:flex; align-items:center; gap:.8rem;
+    padding:.7rem 0;
+    color:var(--plum); text-decoration:none;
+    font-size:.92rem;
+    border-top:1px solid rgba(74,47,53,.08);
+  }
+  .social-list a:first-child{border-top:none;}
+  .social-icon{
+    width:30px; height:30px; border-radius:9px;
+    background:var(--pink);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--rose-deep);
+    flex-shrink:0;
+  }
+  .social-icon svg{width:16px; height:16px;}
 
   /* ---------- BOOKING ---------- */
   .booking{
@@ -347,10 +489,12 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:900px){
-    .hero{grid-template-columns:1fr; min-height:auto;}
-    .hero-half{padding:14vw 8vw; min-height:52vh;}
+    .hero{min-height:auto;}
+    .hero-logo-row{flex:none; height:32vh;}
+    .hero-photos-row{grid-template-columns:1fr; flex:none;}
+    .hero-half{padding:14vw 8vw; min-height:52vh; }
     .hero-half.left .hero-word, .hero-half.right .hero-word{text-align:center; padding:0;}
-    .hero-center{position:relative; top:auto; left:auto; transform:none; padding:2.4rem 0; background:var(--plum);}
+    .hero-center{position:relative; top:auto; left:auto; transform:none; padding:2.4rem 0;}
     .hero-scroll{display:none;}
     .service-grid{grid-template-columns:1fr;}
     .pig-split{grid-template-columns:1fr;}
@@ -360,47 +504,56 @@
     footer{flex-direction:column; gap:1.6rem; align-items:flex-start;}
     footer .foot-right{text-align:left;}
   }
-
-  a:focus-visible, button:focus-visible{outline:2px solid var(--rose-deep); outline-offset:3px;}
+a:focus-visible, button:focus-visible{outline:2px solid var(--rose-deep); outline-offset:3px;}
 </style>
 </head>
-<body>
-
-<nav id="nav">
-  <div class="nav-logo">Stevie Glow</div>
+<body><nav id="nav">
+  <div class="nav-logo"> <img src="Pose/logo_stevie_glow.jpg" alt="logo_stevie_glow" width="140px"></div>
   <div class="nav-links">
     <a href="#services">Prestations</a>
     <a href="#process">Déroulé</a>
     <a href="#gallery">Réalisations</a>
-    <a href="#testimonials">Avis</a>
+    <a href="#contact">Contact</a>
   </div>
   <a href="#booking" class="nav-cta">Réserver</a>
 </nav>
 
 <section class="hero">
-  <div class="hero-half left">
-    <img src="Pose/cils_2.jpg" class="hero-bg" alt="cils">
-    <span class="hero-label">Regard</span>
-    <div class="hero-word">  Cils</div>
+  <div class="hero-logo-row">
+   
   </div>
-  <div class="hero-half right">
-    <img src="Pose/lips_blush.jpg"  class="hero-bg"  alt="lips_blush">
-    <span class="hero-label">Sourire</span>
-    <div class="hero-word">Lip Blush</div>
+  <div class="hero-photos-row">
+    <div class="hero-half left">
+      <img src="Pose/extensions_cils.jpg" class="hero-bg" alt="cils">
+      <span class="hero-label">Regard</span>
+      <div class="hero-word">  Cils</div>
+    </div>
+    <div class="hero-half right">
+      <img src="Pose/lip_blush.jpg"  class="hero-bg"  alt="lips_blush">
+      <span class="hero-label">Sourire</span>
+      <div class="hero-word">Lip Blush</div>
+    </div>
+    <div class="hero-half right">
+      <img src="Pose/Microshading.jpg"  class="hero-bg"  alt="Microshading">
+      <span class="hero-label">Traçage</span>
+      <div class="hero-word">Microshading</div>
+    </div>
   </div>
-  <div class="hero-center">
-    <div class="mark">Stevie Glow Studio</div>
-    <div class="tagline">L'art de sublimer votre beauté naturelle.</div>
-  </div>
-  
 </section>
+
+<div class="hero-center">
+    <div class="mark">Stevie Glow Studio</div>
+    <div class="tagline">L'art de sublimer <br>votre beauté naturelle.</div>
+    
+    
+  </div>
 
 <section class="motif">
   <svg viewBox="0 0 680 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path class="motif-path" d="M40 120 C 90 60, 160 60, 210 110 C 240 140, 200 150, 175 130 C 220 90, 300 80, 340 115 C 380 80, 460 90, 505 130 C 480 150, 440 140, 470 110 C 520 60, 590 60, 640 120" />
   </svg>
 </section>
-
+ 
 <section class="services" id="services">
   <div class="section-head reveal">
     <span class="eyebrow">Nos deux univers</span>
@@ -420,8 +573,7 @@
         <tr><td>Méga volume — regard sophistiqué</td><td class="num">120,00 $</td><td class="num final">137,99 $</td></tr>
       </table>
 
-      <p class="sub-label">Remplissages — toutes techniques</p>
-      <table class="price-table">
+      <p class="sub-label">Remplissages — toutes techniques</p><table class="price-table">
         <tr><td>2 semaines</td><td class="num">50,00 $</td><td class="num final">57,49 $</td></tr>
         <tr><td>3 semaines</td><td class="num">60,00 $</td><td class="num final">68,99 $</td></tr>
         <tr><td>4 semaines</td><td class="num">70,00 $</td><td class="num final">80,49 $</td></tr>
@@ -441,8 +593,7 @@
       <div class="pig-split">
         <div>
           <h5>Lip Blush</h5>
-          <table class="price-table">
-            <tr><th>Séance</th><th class="num">Avec taxes</th></tr>
+          <table class="price-table"><tr><th>Séance</th><th class="num">Avec taxes</th></tr>
             <tr><td>Avec retouche incluse</td><td class="num final">402,41 $</td></tr>
             <tr><td>Sans retouche</td><td class="num final">287,44 $</td></tr>
           </table>
@@ -451,12 +602,10 @@
           <h5>Microshading</h5>
           <table class="price-table">
             <tr><th>Séance</th><th class="num">Avec taxes</th></tr>
-            <tr><td>Avec retouche incluse</td><td class="num final">402,41 $</td></tr><tr><td>Sans retouche</td><td class="num final">287,44 $</td></tr>
+<tr><td>Avec retouche incluse</td><td class="num final">402,41 $</td></tr><tr><td>Sans retouche</td><td class="num final">287,44 $</td></tr>
           </table>
         </div>
-      </div>
-
-      <p class="sub-label">Retouche (6 à 8 semaines après)</p>
+      </div><p class="sub-label">Retouche (6 à 8 semaines après)</p>
       <table class="price-table">
         <tr><td>Retouche — lip blush ou microshading</td><td class="num">150,00 $</td><td class="num final">172,46 $</td></tr>
       </table>
@@ -496,34 +645,143 @@
     <h2 class="section-title">Quelques regards, quelques sourires</h2>
   </div>
   <div class="gallery-grid reveal">
-    <div class="gallery-item g1"> <img src="Pose/volume_russe.jpg" alt="volume_russe" style="object-position: center 15%;"><span>Volume russe</span></div>
-    <div class="gallery-item g2"><img src="Pose/lip_blush_nude.jpg" alt="lip_blush_nude"style="object-position: center 15%;"><span>Lip blush nude</span></div>
-    <div class="gallery-item g3"><img src="Pose/cils_à_cils_naturel.jpg" alt="cils_à_cils_naturel"style="object-position: center 15%;"><span>Cil à cil naturel</span></div>
-    <div class="gallery-item g4"><img src="Pose/microshading_sourcils.jpg" alt="microshading_sourcils"style="object-position: center 15%;"><span>Microshading sourcils</span></div>
+    <a href="#lb-g1" class="gallery-item g1">
+      <img src="Pose/volume_russe.jpg" alt="volume_russe" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Volume russe</span>
+        <span class="meta">1h · 100$–114,99$</span>
+      </div>
+    </a>
+    <a href="#lb-g2" class="gallery-item g2">
+      <img src="Pose/lip_blush_nude.jpg" alt="lip_blush_nude" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Lip blush nude</span>
+        <span class="meta">1h30 · 350$–402,41$</span>
+      </div>
+    </a>
+    <a href="#lb-g3" class="gallery-item g3">
+      <img src="Pose/cils_à_cils_naturel.jpg" alt="cils_à_cils_naturel" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Cil à cil naturel</span>
+        <span class="meta">1h · 60$–68,99$</span>
+      </div>
+    </a>
+    <a href="#lb-g4" class="gallery-item g4"><img src="Pose/microshading_sourcils.jpg" alt="microshading_sourcils" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Microshading sourcils</span>
+        <span class="meta">1h30 · 350$–402,41$</span>
+      </div>
+    </a>
+    <a href="#lb-g5" class="gallery-item g5">
+      <img src="Pose/Mega_Volume.jpg" alt="Méga volume" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Méga volume</span>
+        <span class="meta">1h · 120$–137,99$</span>
+      </div>
+    </a>
+    <a href="#lb-g6" class="gallery-item g6">
+      <img src="Pose/Hybride.jpg" alt="Hybride" style="object-position: center 15%;">
+      <div class="gallery-caption">
+        <span class="name">Hybride</span>
+        <span class="meta">1h · 80$–91,99$</span>
+      </div>
+    </a>
   </div>
 </section>
 
-<section class="testimonials" id="testimonials">
+<section class="contact-info" id="contact">
   <div class="section-head reveal">
-    <span class="eyebrow">Elles en parlent</span>
-    <h2 class="section-title">Douceur confirmée</h2>
+    <span class="eyebrow">Contact</span><h2 class="section-title">Toutes les infos, en un coup d'œil</h2>
   </div>
-  <div class="t-grid reveal">
-    <div class="t-card">
-      <span class="stars">★★★★★</span>
-      <p>« Un regard transformé sans avoir l'air 'refait'. Exactement ce que je voulais. »</p>
-      <span class="who">Aïcha, cliente cils</span>
-    </div>
-    <div class="t-card">
-      <span class="stars">★★★★★</span>
-      <p>« Mes lèvres ont enfin la couleur que je mettais 10 minutes à obtenir chaque matin. »</p>
-      <span class="who">Nadège, cliente lip blush</span>
-    </div>
-    <div class="t-card">
-      <span class="stars">★★★★★</span>
-      <p>« Accueil chaleureux, geste précis, et un résultat qui a tenu bien au-delà de ce qu'on m'avait promis. »</p>
-      <span class="who">Prisca, cliente cils & lèvres</span>
-    </div>
+
+  <div class="info-list reveal">
+
+    <a class="info-item" href="https://www.google.com/maps/search/?api=1&query=2455+Rue+D%27Alger+Quebec+QC+G1P+3K1" target="_blank" rel="noopener">
+      <div class="info-text">
+        <span class="info-title">Adresse</span>
+        <span class="info-sub">2455 Rue D'Alger<br>Québec, QC G1P 3K1</span>
+      </div>
+      <span class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11L21 3L13 21L11 13L3 11Z" stroke-linejoin="round"/></svg>
+      </span>
+    </a><a class="info-item" href="tel:+13673301419">
+      <div class="info-text">
+        <span class="info-title">Téléphone</span>
+        <span class="info-sub">(367) 330-1419</span>
+      </div>
+      <span class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1L6.6 10.8Z" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+
+    <details class="info-item info-details">
+      <summary>
+        <div class="info-text">
+          <span class="info-title">Heures</span>
+          <span class="info-sub">Ouvre à 09:00 · Fermé à 23:00  </span>
+        </div>
+        <span class="info-icon chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="hours-table">
+        <div><span>Lundi</span><span>09:00 – 23:00</span></div>
+        <div><span>Mardi</span><span>09:00 – 23:00</span></div>
+        <div><span>Mercredi</span><span>09:00 – 23:00</span></div>
+        <div><span>Jeudi</span><span>09:00 – 23:00</span></div>
+        <div><span>Vendredi</span><span>09:00 – 23:00</span></div>
+        <div><span>Samedi</span><span>09:00 – 23:00</span></div>
+        <div><span>Dimanche</span> <span>09:00 – 23:00</span></div>
+      </div>
+    </details>
+
+    <details class="info-item info-details">
+      <summary>
+        <div class="info-text">
+          <span class="info-title">Suivre</span>
+          <span class="info-sub">Stevie glow studio</span>
+        </div>
+        <span class="info-icon chevron">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="social-list">
+        <a class="social-link" href="https://www.instagram.com/stevie_lashes_and_brows?igsh=MWJjbmNpMTRzMHNweQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          Instagram
+        </a>
+        <a class="social-link" href="https://www.tiktok.com/@stevie_glow_studio_qc?_r=1&_t=ZS-9827oZiY7Zl" target="_blank" rel="noopener">
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 3v10.5a3.5 3.5 0 1 1-3.5-3.5c.3 0 .6 0 1 .1V7.8c-.3-.1-.6-.1-1-.1A6.3 6.3 0 1 0 17.8 14V9.2a7 7 0 0 0 4.2 1.4V7.4A4 4 0 0 1 18 3.4V3h-3Z" stroke-linejoin="round"/></svg>
+          </span>
+          TikTok
+        </a>
+        <a class="social-link" href="https://www.snapchat.com/@stevierodiane1?invite_id=KHBdtpPN&locale=fr_CA&share_id=0ym-lZbQRLeAqOqcHO8pLw&sid=7e17ea1ca84842b88adca5ba64f5a7ab&locale=fr-CA" target="_blank" rel="noopener">
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c2.8 0 4.6 2 4.6 4.8 0 1.3-.1 2.3.2 3 .3.7 1 1 1.7 1.2.3 0 .5.3.4.6-.2.7-1 1.1-1.6 1.3.1.4.2.8-.1 1.1-.3.3-.9.3-1.4.4-.3 0-.5.2-.7.5-.5.8-1.3 1.6-2.1 1.6-.6 0-1-.2-1.5-.4-.5-.2-1-.2-1.5 0-.5.2-.9.4-1.5.4-.8 0-1.6-.8-2.1-1.6-.2-.3-.4-.5-.7-.5-.5-.1-1.1-.1-1.4-.4-.3-.3-.2-.7-.1-1.1-.6-.2-1.4-.6-1.6-1.3-.1-.3.1-.6.4-.6.7-.2 1.4-.5 1.7-1.2.3-.7.2-1.7.2-3C7.4 5 9.2 3 12 3Z" stroke-linejoin="round"/></svg>
+          </span>
+          Snapchat
+        </a>
+        <a class="social-link" href="https://www.facebook.com/share/1E3p3PHigC/?mibextid=wwXIfr" target="_blank" rel="noopener">
+          <span class="social-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8.5h-2a1 1 0 0 0-1 1V12h3l-.4 3H12v6H9v-6H7v-3h2V9c0-2.2 1.3-3.8 3.5-3.8H15v3.3Z" stroke-linejoin="round"/></svg>
+          </span>
+          Facebook
+        </a>
+      </div>
+    </details>
+
+    <a class="info-item" href="sms:+13673301419"><div class="info-text">
+        <span class="info-title">Envoyez-nous un texto</span>
+        <span class="info-sub">Nous vous répondrons dès que possible</span>
+      </div>
+      <span class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4Z" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+
   </div>
 </section>
 
@@ -538,25 +796,105 @@
   <div>
     <div class="foot-logo">Stevie Glow Studio</div>
     <div class="foot-links">
-      <a href="tel:+13673301419">367 330 1419</a>
-      <span>Instagram — Stevie glow studio</span>
-      <span>TikTok — Stevie glow studio</span>
+      <a href="tel:+13673301419">Abonnez-Vous</a>
+      <a href="https://www.instagram.com/stevie_lashes_and_brows?igsh=MWJjbmNpMTRzMHNweQ%3D%3D&utm_source=qr" target="_blank" rel="noopener"> <img src="Pose/instagram.png" alt="" width="50px"></a>
+      <a href="https://www.tiktok.com/@stevie_glow_studio_qc?_r=1&_t=ZS-9827oZiY7Zl" target="_blank" rel="noopener"> <img src="Pose/tik_tok.png" alt="tik_tok " width="50px"></a>
+      <a href="https://www.snapchat.com/@stevierodiane1?invite_id=KHBdtpPN&locale=fr_CA&share_id=0ym-lZbQRLeAqOqcHO8pLw&sid=7e17ea1ca84842b88adca5ba64f5a7ab&locale=fr-CA" target="_blank" rel="noopener"></a><img src="Pose/snapchat.png" alt="snapchat" width="50px">
+      <a href="https://www.facebook.com/share/1E3p3PHigC/?mibextid=wwXIfr" target="_blank" rel="noopener"><img src="Pose/facebook.png" alt="facebook" width="50px"></a>
     </div>
   </div>
   <div class="foot-right">
     Confiance. Éclat. Beauté.<br>
     © 2026 Stevie Glow Studio — Tous droits réservés
   </div>
-</footer>
+</footer><!-- ============================================================
+     LIGHTBOX — agrandissement des photos (100% CSS, sans JavaScript)
+============================================================= -->
+<div class="lightbox-overlay" id="lb-g1">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a><div class="lightbox-box">
+    <a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"><img src="Pose/volume_russe.jpg" alt="volume_russe"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Volume russe</span>
+      <span class="lb-meta">1h · 100$–114,99$</span>
+      <a href="" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox-overlay" id="lb-g2">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a>
+  <div class="lightbox-box">
+    <a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"><img src="Pose/lip_blush_nude.jpg" alt="lip_blush_nude"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Lip blush nude</span>
+      <span class="lb-meta">1h30 · 350$–402,41$</span>
+      <a href="LIEN_FRESHA_A_REMPLACER" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox-overlay" id="lb-g3">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a>
+  <div class="lightbox-box"><a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"><img src="Pose/cils_à_cils_naturel.jpg" alt="cils_à_cils_naturel"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Cil à cil naturel</span>
+      <span class="lb-meta">1h · 60$–68,99$</span>
+      <a href="https://book.squareup.com/appointments/hw0gjxnj4gewd5/location/L52C7CF1051CK/services" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox-overlay" id="lb-g4">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a>
+  <div class="lightbox-box">
+    <a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"><img src="Pose/microshading_sourcils.jpg" alt="microshading_sourcils"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Microshading sourcils</span>
+      <span class="lb-meta">1h30 · 350$–402,41$</span>
+      <a href="https://book.squareup.com/appointments/hw0gjxnj4gewd5/location/L52C7CF1051CK/services" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox-overlay" id="lb-g5">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a>
+  <div class="lightbox-box">
+    <a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"> <img src="Pose/Mega_Volume.jpg" alt="Mega_Volume" style="object-position: center 15%;"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Cils — Méga volume</span>
+      <span class="lb-meta">1h · 120$–137,99$</span>
+      <a href="https://book.squareup.com/appointments/hw0gjxnj4gewd5/location/L52C7CF1051CK/services" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox-overlay" id="lb-g6">
+  <a href="#" class="lightbox-overlay-bg" aria-label="Fermer"></a>
+  <div class="lightbox-box">
+    <a href="#" class="lightbox-close" aria-label="Fermer">&times;</a>
+    <div class="lightbox-img-wrap"><img src="Pose/Hybride.jpg" alt="Hybride" style="object-position: center 15%;"></div>
+    <div class="lightbox-info">
+      <span class="lb-name">Cils — Hybride</span>
+      <span class="lb-meta">1h · 80$–91,99$</span>
+      <a href="https://book.squareup.com/appointments/hw0gjxnj4gewd5/location/L52C7CF1051CK/services" class="lb-book" target="_blank" rel="noopener">Réserver</a>
+    </div>
+  </div>
+</div>
 
 <script>
+  // ---- Effet de scroll sur le menu ----
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  const revealEls = document.querySelectorAll('.reveal');
-  const motifPath = document.querySelector('.motif-path');
+  // ---- Apparition progressive des sections au scroll ----
+  const revealEls = document.querySelectorAll('.reveal');const motifPath = document.querySelector('.motif-path');
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
